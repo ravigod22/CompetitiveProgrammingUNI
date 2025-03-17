@@ -1,48 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
+using i64 = long long;
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     int tt; cin >> tt;
     while (tt--) {
-        long long n, m; cin >> n >> m;
+        int n, m; cin >> n >> m;
         if (m == 0) {
             cout << n << "\n";
             continue;
         }
-        long long t = n + 2 * m + 1;
-        long long ans = 0;
-        vector<int> bits;
+        i64 L = 1LL * max(0, n - m);
+        i64 R = 0LL + n + m;
+        i64 ans = 0;
         for (int i = 32; i >= 0; --i) {
-            if (t & (1ll << i)) {
-                bits.emplace_back(i);
+            int bitL = (L >> i) & 1;
+            int bitR = (R >> i) & 1;
+            if (bitL == bitR) {
+                if (bitL) ans |= (1LL << i);
             }
-        }
-        int pos = -1;
-        bool exist = false;
-        for (int i = 1; i <= bits.size(); ++i) {
-            if (bits[i] - bits[i - 1] == 1) {
-                pos = bits[i];
-                exist = true;
+            else {
+                ans |= (1LL << (i + 1)) - 1;
+                break;
             }
-        }
-        if (exist) {
-            int k = bits.size();
-            for (int i = 0; i < k; ++i) {
-                if (bits[i] != pos) {
-                    ans |= (1ll << bits[i]);
-                }
-                else {
-                    long long tmp = (1ll << (pos + 1)) - 1;
-                    ans |= tmp;
-                    break;
-                }
-            }
-        }
-        else {
-            long long tmp = (1ll << (bits[0] + 1)) - 1;
-            ans |= tmp;
         }
         cout << ans << "\n";
     }
