@@ -1,29 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
+using i64 = long long;
 
-void solve() {
-    int n; cin >> n;
-    vector<int> a(n);
-    map<int, int> mp;
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-        mp[a[i]]++;
+int main () {
+    int n;
+    cin >> n;
+    if (n == 1) {
+        cout << 1 << "\n";
+        cout << 1 << "\n";
+        return 0;
     }
-    long long ans = 0;
-    for (auto e : mp) {
-        ans += 1LL * e.second * (e.second - 1) / 2;
-    }
-    ans += 1LL * mp[1] * mp[2];
-    cout << ans << "\n";
-}
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int tt = 1;
-    cin >> tt;
-    while (tt--) {
-        solve();
-    }
+    cout << (n / 2) << "\n";
+    for (int i = 2; i <= n; i += 2) cout << i << " ";
+    cout << "\n";
     return 0;
 }
